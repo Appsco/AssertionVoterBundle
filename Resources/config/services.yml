@@ -1,0 +1,44 @@
+parameters:
+    appsco.assertion.voter_record.orm.class: Appsco\AssertionVoterBundle\Entity\VoterRecord
+    appsco.assertion.voter_record_provider.orm.class: Appsco\AssertionVoterBundle\VoterRecordProvider\DoctrineOrmVoterRecordProvider
+
+    appsco.assertion.voter_record_provider.dbal.class: Appsco\AssertionVoterBundle\VoterRecordProvider\DoctrineDbalVoterRecordProvider
+    appsco.assertion.voter_record_provider.dbal.table_name: VoterRecord
+    appsco.assertion.voter_record_provider.dbal.issuer_column: issuer
+    appsco.assertion.voter_record_provider.dbal.attribute_column: attribute
+    appsco.assertion.voter_record_provider.dbal.value_column: value
+    appsco.assertion.voter_record_provider.dbal.role_column: role
+
+    appsco.assertion.voter_factory.simple.class: Appsco\AssertionVoterBundle\VoterFactory\SimpleVoterFactory
+
+services:
+
+    appsco.assertion.decision_maker.simple:
+        public: false
+        class: BWC\Component\AssertionVoter\SimpleDecisionMaker
+        tags:
+            - { name: appsco.assertion.decision_maker, alias: simple }
+
+    # Voter Factory
+
+    appsco.assertion.voter_factory.simple:
+        public: false
+        class: %appsco.assertion.voter_factory.simple.class%
+
+    # Record Provider
+
+    appsco.assertion.voter_record_provider.orm:
+        public: false
+        class: %appsco.assertion.voter_record_provider.orm.class%
+        arguments: [@doctrine.orm.entity_manager, %appsco.assertion.voter_record.orm.class%]
+
+    appsco.assertion.voter_record_provider.dbal:
+        public: false
+        class: %appsco.assertion.voter_record_provider.dbal.class%
+        arguments:
+            - @doctrine.dbal.default_connection
+            - %appsco.assertion.voter_record_provider.dbal.table_name%
+            - %appsco.assertion.voter_record_provider.dbal.issuer_column%
+            - %appsco.assertion.voter_record_provider.dbal.attribute_column%
+            - %appsco.assertion.voter_record_provider.dbal.value_column%
+            - %appsco.assertion.voter_record_provider.dbal.role_column%

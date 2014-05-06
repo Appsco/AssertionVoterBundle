@@ -1,0 +1,3 @@
+asd:
+    path: /asd
+    defaults: { _controller: AppscoAssertionVoterBundle:Test:index }
