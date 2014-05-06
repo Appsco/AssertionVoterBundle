@@ -2,6 +2,7 @@
 
 namespace Appsco\AssertionVoterBundle\Service;
 
+use Appsco\AssertionVoterBundle\Exception\ConfigurationException;
 use Appsco\AssertionVoterBundle\Exception\InvalidArgumentException;
 use Appsco\AssertionVoterBundle\VoterFactory\VoterFactoryInterface;
 use Appsco\AssertionVoterBundle\VoterRecordProvider\VoterRecordProviderInterface;
@@ -59,9 +60,19 @@ class RoleResolver
     /**
      * @param DecisionMakerInterface $decisionMaker
      * @param string $name
+     *
+     * @throws \Appsco\AssertionVoterBundle\Exception\ConfigurationException
      */
     public function registerDecisionMaker(DecisionMakerInterface $decisionMaker, $name)
     {
+        if (isset($this->decisionMakers[$name])) {
+            throw new ConfigurationException(sprintf(
+                'Voter "%s" is already registered and resolves to class "%s"',
+                $name,
+                get_class($this->decisionMakers[$name])
+            ));
+        }
+
         $this->decisionMakers[$name] = $decisionMaker;
     }
 
