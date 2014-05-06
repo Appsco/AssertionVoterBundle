@@ -1,0 +1,16 @@
+{
+    "name": "appsco/assertion-voter-bundle",
+    "type": "symfony-bundle",
+    "description": "Assertion Voter Bundle",
+    "keywords": ["Assertion voter"],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4",
+        "symfony/dependency-injection": "~2.1",
+        "appsco/component-assertion-voter": "1.0.0-RC1"
+    },
+    "autoload": {
+        "psr-0": { "Appsco\\AssertionVoterBundle": "" }
+    },
+    "target-dir": "Appsco/AssertionVoterBundle"
+}
