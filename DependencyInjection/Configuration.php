@@ -16,8 +16,17 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('voter_record_provider')->isRequired()->end()
+                ->scalarNode('voter_record_class')->end()
                 ->scalarNode('voter_factory')->isRequired()->end()
-            ->end();
+            ->end()
+            ->validate()
+                ->ifTrue(function ($v) {
+                    return $v['voter_record_provider'] === 'appsco.assertion.voter_record_provider.orm'
+                    && empty($v['voter_record_class']);
+                })
+                ->thenInvalid('"voter_record_class" configuration parameter must be set when using ORM record provider')
+            ->end()
+        ;
 
         return $treeBuilder;
     }
