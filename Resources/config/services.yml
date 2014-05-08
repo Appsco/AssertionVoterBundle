@@ -1,5 +1,4 @@
 parameters:
-    appsco.assertion.voter_record.orm.class: Appsco\AssertionVoterBundle\Entity\VoterRecord
     appsco.assertion.voter_record_provider.orm.class: Appsco\AssertionVoterBundle\VoterRecordProvider\DoctrineOrmVoterRecordProvider
 
     appsco.assertion.voter_record_provider.dbal.class: Appsco\AssertionVoterBundle\VoterRecordProvider\DoctrineDbalVoterRecordProvider

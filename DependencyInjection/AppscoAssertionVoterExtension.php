@@ -41,6 +41,7 @@ class AppscoAssertionVoterExtension extends Extension
         switch ($config['voter_record_provider']) {
             case 'appsco.assertion.voter_record_provider.orm':
                 $container->setParameter('appsco.assertion.backend_type.orm', true);
+                $container->setParameter('appsco.assertion.voter_record.orm.class', $config['voter_record_class']);
                 break;
         }
     }
