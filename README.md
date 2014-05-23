@@ -46,20 +46,64 @@ one already provided in the bundle.
 
 ### Doctrine Orm Voter Record Provider
 
-1. (required) Instruct bundle to use it
+1. (required) Create your VoterRecord entity
+
+    In most cases it will look like this:
+
+        <?php
+
+        namespace Acme\YourBundle\Entity;
+
+        use Appsco\AssertionVoterBundle\Entity\VoterRecord as BaseVoterRecord;
+        use Doctrine\ORM\Mapping as ORM;
+
+        /**
+         * @ORM\Entity
+         */
+        class VoterRecord extends BaseVoterRecord
+        {
+            /**
+             * @ORM\Id
+             * @ORM\GeneratedValue
+             * @ORM\Column(type="integer")
+             * @var int
+             */
+            private $id;
+
+            /**
+             * @return int
+             */
+            public function getId()
+            {
+                return $this->id;
+            }
+        }
+
+
+2. (required) Instruct bundle to use it
 
     Set `voter_record_provider` in `app/config/config.yml` to `appsco.assertion.voter_record_provider.orm`
 
-2. (optional) Change voter record entity class
+    Set `voter_record_class` in `app/config/config.yml` to your voter record class name.
 
-    Set container parameter `appsco.assertion.voter_record_provider.orm.class` to your entity class.
+    Example:
 
+        # app/config/config.yml
+        appsco_assertion_voter:
+            voter_record_provider: appsco.assertion.voter_record_provider.orm
+            voter_record_class: Acme\YourBundle\Entity\VoterRecord
 
 ### Doctrine Dbal Voter Record Provider
 
 1. (required) Instruct bundle to use it
 
     Set `voter_record_provider` in `app/config/config.yml` to `appsco.assertion.voter_record_provider.dbal`
+
+    Example:
+
+        # app/config/config.yml
+        appsco_assertion_voter:
+            voter_record_provider: appsco.assertion.voter_record_provider.dbal
 
 2. (optional) Customize table name and fields
 
