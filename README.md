@@ -51,12 +51,12 @@ one already provided in the bundle.
     In most cases it will look like this:
 
         <?php
-        
+
         namespace Acme\YourBundle\Entity;
-        
+
         use Appsco\AssertionVoterBundle\Entity\VoterRecord as BaseVoterRecord;
         use Doctrine\ORM\Mapping as ORM;
-        
+
         /**
          * @ORM\Entity
          */

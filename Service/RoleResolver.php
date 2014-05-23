@@ -24,12 +24,12 @@ class RoleResolver
     /**
      * @var VoterInterface[]
      */
-    private $voters;
+    private $voters = [];
 
     /**
      * @var DecisionMakerInterface[]
      */
-    private $decisionMakers;
+    private $decisionMakers = [];
 
     /**
      * @var bool
